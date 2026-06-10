@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POLICE SYSTEM - 범죄 수사 대시보드</title>
-    <!-- Tailwind CSS 제공 -->
+    <title>INTERNAL AFFAIRS BUREAU - 감찰반 사건 시스템</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 폰트 및 아이콘 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -14,121 +12,110 @@
             background-color: #0b0f19;
         }
         .glow {
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
         }
     </style>
 </head>
 <body class="text-slate-100 flex justify-center items-center min-h-screen p-4">
 
-    <!-- 앱 컨테이너 (모바일 화면 사이즈에 최적화) -->
     <div class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col h-[85vh]">
         
-        <!-- 상단 헤더 -->
         <header class="bg-slate-950 border-b border-slate-800 p-4 flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <i class="fa-solid fa-shield-halved text-blue-500 text-xl animate-pulse"></i>
-                <h1 class="text-md font-bold tracking-wider text-blue-400">METRO POLICE SYS</h1>
+                <i class="fa-solid fa-user-secret text-red-500 text-xl animate-pulse"></i>
+                <h1 class="text-md font-bold tracking-wider text-red-400">IAB INCIDENT SYS</h1>
             </div>
             <div class="flex items-center gap-3 text-xs bg-slate-900 px-3 py-1.5 rounded-full border border-slate-800">
-                <span>명성: <strong id="rep-score" class="text-yellow-400">⭐ 50</strong></span>
+                <span>신뢰도: <strong id="rep-score" class="text-yellow-400">⭐ 50</strong></span>
                 <span class="text-slate-600">|</span>
-                <span>해결: <strong id="solved-count" class="text-green-400">0건</strong></span>
+                <span>징계: <strong id="solved-count" class="text-green-400">0건</strong></span>
             </div>
         </header>
 
-        <!-- 메인 콘텐츠 영역 (스크롤 가능) -->
         <main class="flex-1 p-4 overflow-y-auto space-y-4" id="main-content">
             
-            <!-- 대시보드 요약 -->
             <div class="bg-gradient-to-r from-slate-950 to-slate-900 p-4 rounded-xl border border-slate-800">
-                <h2 class="text-sm font-semibold text-slate-400 mb-1">오늘의 관할 구역 치안 상태</h2>
-                <p class="text-lg font-bold text-red-400"><i class="fa-solid fa-triangle-exclamation mr-1"></i> 경계 단계 (강도 및 해킹 발생)</p>
+                <h2 class="text-sm font-semibold text-slate-400 mb-1">조직 내부 상태</h2>
+                <p class="text-lg font-bold text-orange-400"><i class="fa-solid fa-virus-slash mr-1"></i> 부패 위험도: 위험</p>
             </div>
 
-            <!-- 사건 리스트 타이틀 -->
-            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider px-1">접수된 긴급 사건 목록</h3>
+            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider px-1">접수된 비위 제보 목록</h3>
 
-            <!-- 사건 카드들 -->
             <div class="space-y-3" id="case-list">
-                <!-- 사건 1 -->
-                <div onclick="openCase(1)" class="bg-slate-950 border border-slate-800 hover:border-blue-500/50 p-4 rounded-xl cursor-pointer transition-all duration-200 flex justify-between items-center group">
+                <div onclick="openCase(1)" class="bg-slate-950 border border-slate-800 hover:border-red-500/50 p-4 rounded-xl cursor-pointer transition-all duration-200 flex justify-between items-center group">
                     <div class="space-y-1">
-                        <span class="text-[10px] bg-red-900/50 text-red-400 px-2 py-0.5 rounded border border-red-800">지정 강력 사건</span>
-                        <h4 class="font-bold text-sm text-slate-200 group-hover:text-blue-400 transition-colors">미드나잇 미술관 도난 사건</h4>
-                        <p class="text-xs text-slate-400">전날 새벽, 수십억 가치의 명화가 사라졌습니다.</p>
+                        <span class="text-[10px] bg-red-900/50 text-red-400 px-2 py-0.5 rounded border border-red-800">조직 내부 비리</span>
+                        <h4 class="font-bold text-sm text-slate-200 group-hover:text-red-400 transition-colors">마약 전담반의 검은 거래</h4>
+                        <p class="text-xs text-slate-400">압수한 마약을 빼돌려 판매한다는 제보가 접수되었습니다.</p>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-blue-400 transition-colors pl-2"></i>
+                    <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-red-400 transition-colors pl-2"></i>
                 </div>
 
-                <!-- 사건 2 -->
-                <div onclick="openCase(2)" class="bg-slate-950 border border-slate-800 hover:border-blue-500/50 p-4 rounded-xl cursor-pointer transition-all duration-200 flex justify-between items-center group">
+                <div onclick="openCase(2)" class="bg-slate-950 border border-slate-800 hover:border-red-500/50 p-4 rounded-xl cursor-pointer transition-all duration-200 flex justify-between items-center group">
                     <div class="space-y-1">
-                        <span class="text-[10px] bg-amber-900/50 text-amber-400 px-2 py-0.5 rounded border border-amber-800">사이버 범죄</span>
-                        <h4 class="font-bold text-sm text-slate-200 group-hover:text-blue-400 transition-colors">유령 해커의 시청 협박 소동</h4>
-                        <p class="text-xs text-slate-400">시청 서버를 마비시키겠다는 랜섬웨어 메일이 도착했습니다.</p>
+                        <span class="text-[10px] bg-red-900/50 text-red-400 px-2 py-0.5 rounded border border-red-800">과잉 진압</span>
+                        <h4 class="font-bold text-sm text-slate-200 group-hover:text-red-400 transition-colors">골목길 과잉 진압 조작 소동</h4>
+                        <p class="text-xs text-slate-400">체포 과정에서 시민에게 폭력을 행사하고 조서를 조작했다는 의혹입니다.</p>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-blue-400 transition-colors pl-2"></i>
+                    <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-red-400 transition-colors pl-2"></i>
                 </div>
 
-                <!-- 사건 3 -->
-                <div onclick="openCase(3)" class="bg-slate-950 border border-slate-800 hover:border-blue-500/50 p-4 rounded-xl cursor-pointer transition-all duration-200 flex justify-between items-center group">
+                <div onclick="openCase(3)" class="bg-slate-950 border border-slate-800 hover:border-red-500/50 p-4 rounded-xl cursor-pointer transition-all duration-200 flex justify-between items-center group">
                     <div class="space-y-1">
-                        <span class="text-[10px] bg-blue-900/50 text-blue-400 px-2 py-0.5 rounded border border-blue-800">일반 형사</span>
-                        <h4 class="font-bold text-sm text-slate-200 group-hover:text-blue-400 transition-colors">빗속 골목길 뺑소니 사고</h4>
-                        <p class="text-xs text-slate-400">현장에 깨진 전조등 파편과 희미한 타이어 자국이 남았습니다.</p>
+                        <span class="text-[10px] bg-orange-900/50 text-orange-400 px-2 py-0.5 rounded border border-orange-800">정보 유출</span>
+                        <h4 class="font-bold text-sm text-slate-200 group-hover:text-red-400 transition-colors">용의자 정보 유출 의혹</h4>
+                        <p class="text-xs text-slate-400">보복 운전 용의자가 피해자의 개인 정보를 알아내어 위협했습니다.</p>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-blue-400 transition-colors pl-2"></i>
+                    <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-red-400 transition-colors pl-2"></i>
                 </div>
             </div>
 
         </main>
 
-        <!-- 하단 내비게이션 바 -->
         <footer class="bg-slate-950 border-t border-slate-800 p-3 grid grid-cols-3 text-center text-xs text-slate-500">
-            <button onclick="goHome()" class="flex flex-col items-center gap-1 text-blue-400 font-semibold">
+            <button onclick="goHome()" class="flex flex-col items-center gap-1 text-red-400 font-semibold">
                 <i class="fa-solid fa-building-shield text-lg"></i>
-                <span>상황실</span>
+                <span>보고서</span>
             </button>
-            <button onclick="alert('데이터베이스 동기화 완료')" class="flex flex-col items-center gap-1 hover:text-slate-300">
-                <i class="fa-solid fa-folder-open text-lg"></i>
-                <span>조회시스템</span>
+            <button onclick="alert('인사 데이터베이스 동기화 완료')" class="flex flex-col items-center gap-1 hover:text-slate-300">
+                <i class="fa-solid fa-database text-lg"></i>
+                <span>인사DB</span>
             </button>
-            <button onclick="alert('접속자: 경위 김지훈')" class="flex flex-col items-center gap-1 hover:text-slate-300">
-                <i class="fa-solid fa-user-gear text-lg"></i>
-                <span>내 정보</span>
+            <button onclick="alert('접속자: 감찰관 최진혁')" class="flex flex-col items-center gap-1 hover:text-slate-300">
+                <i class="fa-solid fa-id-card text-lg"></i>
+                <span>인증서</span>
             </button>
         </footer>
     </div>
 
-    <!-- 자바스크립트 수사 엔진 -->
     <script>
         let reputation = 50;
         let solvedCases = 0;
 
-        // 사건 데이터 정의
+        // 사건 데이터 정의 (감찰반 버전)
         const caseData = {
             1: {
-                title: "미드나잇 미술관 도난 사건",
-                desc: "CCTV가 유일하게 꺼졌던 오전 2시에서 3시 사이, 한정판 명화가 도난당했습니다. 현장에는 미세한 흙먼지와 경비원의 풀려진 넥타이가 발견되었습니다.",
+                title: "마약 전담반의 검은 거래",
+                desc: "마약 전담 팀의 팀장이 압수한 마약을 빼돌려 판매한다는 제보가 들어왔습니다. 팀장은 최근 거액의 현금을 입금했습니다. 감찰관님, 어떻게 하시겠습니까?",
                 choices: [
-                    { text: "경비원을 집중 심문하여 내부 조력자 여부를 파악한다.", rep: 15, msg: "성공! 경비원이 거액의 빚 때문에 보안 카드를 복사해 준 사실을 자백했습니다. 주범을 검거했습니다." },
-                    { text: "미술관 주변 사설 CCTV와 차량 블랙박스를 전수 조사한다.", rep: -10, msg: "실패... 용의자는 대포차를 이용해 흔적을 감추었습니다. 수사가 미궁에 빠져 명성이 떨어집니다." }
+                    { text: "팀장의 금융 거래 내역과 비밀 금고를 먼저 조사한다.", rep: 15, msg: "성공! 비밀 금고에서 마약 거래 증거를 확보했습니다. 팀장을 징계하고 명성을 얻었습니다." },
+                    { text: "팀의 막내 형사를 설득하여 내부 고발자로 포섭한다.", rep: 20, msg: "대성공! 막내 형사가 확실한 증거를 제공했습니다. 팀장을 체포하고 조직의 신뢰를 회복했습니다!" }
                 ]
             },
             2: {
-                title: "유령 해커의 시청 협박 소동",
-                desc: "다크웹을 통해 유출된 시청 데이터로 협박이 들어왔습니다. 해커는 3시간 뒤 서버를 파괴하겠다고 경고하며 비트코인을 요구하고 있습니다.",
+                title: "골목길 과잉 진압 조작 소동",
+                desc: "체포 과정에서 시민에게 심각한 폭력을 행사하고 조작된 조서를 작성했다는 의혹이 있습니다. 현장 주변 CCTV와 목격자가 필요합니다.",
                 choices: [
-                    { text: "사이버 수사대에 IP 추적을 의뢰하고 해커의 서버 위치를 급습한다.", rep: -15, msg: "실패... 우회 VPN 노드였습니다. 헛걸음한 사이에 시청 데이터 일부가 추가 유출되었습니다." },
-                    { text: "화이트 해커와 협력하여 역방향 디코딩으로 악성코드 침투 경로를 차단한다.", rep: 20, msg: "대성공! 악성코드를 무력화하고 역추적을 통해 오피스텔에 숨어있던 고등학생 해커를 검거했습니다!" }
+                    { text: "가해 경찰관의 바디캠 영상을 원격으로 강제 복구한다.", rep: 15, msg: "성공! 바디캠 영상이 원본임을 증명하여 징계를 완료했습니다." },
+                    { text: "현장 주변 CCTV와 목격자를 다시 찾아 탐문한다.", rep: -10, msg: "실패... 목격자가 위협을 받아 진술을 거부했습니다. 증거를 확보하지 못해 명성이 떨어집니다." }
                 ]
             },
             3: {
-                title: "빗속 골목길 뺑소니 사고",
-                desc: "피해자는 중상을 입었으나 우천으로 인해 단서가 씻겨나갔습니다. 현장 근처에는 은색 차량의 범퍼 파편이 떨어져 있습니다.",
+                title: "용의자 정보 유출 의혹",
+                desc: "보복 운전 용의자가 피해자의 개인 정보를 알아내어 위협했다는 사건입니다. 내부 정보 시스템에서 정보가 유출된 흔적이 있습니다.",
                 choices: [
-                    { text: "관내 등록된 은색 차량 중 최근 수리 내역이 있는 공업사를 탐문한다.", rep: 15, msg: "성공! 범퍼를 비밀리에 교체하려던 용의자를 공업사에서 긴급 체포했습니다." },
-                    { text: "목격자를 찾기 위해 인근 주택가에 현수막을 걸고 제보를 기다린다.", rep: 5, msg: "소기의 성과. 결정적 제보는 없었으나, 인근 편의점 알바생의 진술로 용의 차량 번호 뒤 2자리를 확보했습니다." }
+                    { text: "내부 시스템 접속 로그를 실시간으로 모니터링하여 유출자를 특정한다.", rep: 15, msg: "성공! 현장에서 유출자를 검거하여 징계를 완료했습니다." },
+                    { text: "정보가 유출된 시점에 근무했던 직원들을 개별 심문한다.", rep: 5, msg: "소기의 성과. 유출자를 찾지는 못했지만, 경고를 통해 내부 단속을 강화했습니다." }
                 ]
             }
         };
@@ -146,22 +133,22 @@
             
             let html = `
                 <div class="space-y-4">
-                    <button onclick="goHome()" class="text-xs text-blue-400 hover:underline flex items-center gap-1">
-                        <i class="fa-solid fa-arrow-left"></i> 상황실로 돌아가기
+                    <button onclick="goHome()" class="text-xs text-red-400 hover:underline flex items-center gap-1">
+                        <i class="fa-solid fa-arrow-left"></i> 보고서 목록으로 돌아가기
                     </button>
-                    <div class="bg-slate-950 border border-blue-500/30 p-5 rounded-xl space-y-3 glow">
-                        <h2 class="text-base font-bold text-blue-400 border-b border-slate-800 pb-2">${currentCase.title}</h2>
+                    <div class="bg-slate-950 border border-red-500/30 p-5 rounded-xl space-y-3 glow">
+                        <h2 class="text-base font-bold text-red-400 border-b border-slate-800 pb-2">${currentCase.title}</h2>
                         <p class="text-xs leading-relaxed text-slate-300 bg-slate-900 p-3 rounded-lg border border-slate-800">${currentCase.desc}</p>
                     </div>
-                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider px-1">현 시간부 수사 명령 선택</h3>
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider px-1">현 시간부 감찰 명령 선택</h3>
                     <div class="space-y-2">
             `;
 
             currentCase.choices.forEach((choice, index) => {
                 html += `
-                    <button onclick="selectChoice(${id}, ${index})" class="w-full text-left bg-slate-950 border border-slate-800 hover:border-blue-500 hover:bg-slate-900/50 p-4 rounded-xl text-xs font-medium transition-all duration-200 flex justify-between items-center group">
-                        <span class="text-slate-200 group-hover:text-blue-300">${choice.text}</span>
-                        <i class="fa-solid fa-gavel text-slate-700 group-hover:text-blue-500 transition-colors pl-2"></i>
+                    <button onclick="selectChoice(${id}, ${index})" class="w-full text-left bg-slate-950 border border-slate-800 hover:border-red-500 hover:bg-slate-900/50 p-4 rounded-xl text-xs font-medium transition-all duration-200 flex justify-between items-center group">
+                        <span class="text-slate-200 group-hover:text-red-300">${choice.text}</span>
+                        <i class="fa-solid fa-scale-balanced text-slate-700 group-hover:text-red-500 transition-colors pl-2"></i>
                     </button>
                 `;
             });
@@ -181,14 +168,14 @@
             main.innerHTML = `
                 <div class="space-y-5 text-center py-8">
                     <div class="inline-flex items-center justify-center w-16 h-16 rounded-full ${isSuccess ? 'bg-green-950 text-green-400 border border-green-800' : 'bg-red-950 text-red-400 border border-red-800'} text-2xl mb-2">
-                        <i class="${isSuccess ? 'fa-solid fa-handcuffs' : 'fa-solid fa-ban'}"></i>
+                        <i class="${isSuccess ? 'fa-solid fa-user-check' : 'fa-solid fa-user-xmark'}"></i>
                     </div>
-                    <h2 class="text-lg font-bold ${isSuccess ? 'text-green-400' : 'text-red-400'}">${isSuccess ? '수사 성공 / 사건 종결' : '수사 실패 / 추적 실패'}</h2>
+                    <h2 class="text-lg font-bold ${isSuccess ? 'text-green-400' : 'text-red-400'}">${isSuccess ? '징계 완료 / 사건 종결' : '징계 실패 / 추적 실패'}</h2>
                     <p class="text-xs text-slate-300 max-w-xs mx-auto bg-slate-950 p-4 rounded-xl border border-slate-800 leading-relaxed">${choice.msg}</p>
                     <div class="text-xs font-semibold ${choice.rep > 0 ? 'text-green-400' : 'text-red-400'}">
-                        명성 변동: ${choice.rep > 0 ? '+' : ''}${choice.rep}
+                        신뢰도 변동: ${choice.rep > 0 ? '+' : ''}${choice.rep}
                     </div>
-                    <button onclick="goHome()" class="mt-4 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-6 py-2.5 rounded-lg transition-all shadow-lg shadow-blue-600/20">
+                    <button onclick="goHome()" class="mt-4 bg-red-600 hover:bg-red-500 text-white font-bold text-xs px-6 py-2.5 rounded-lg transition-all shadow-lg shadow-red-600/20">
                         종합 상황실 복귀
                     </button>
                 </div>
