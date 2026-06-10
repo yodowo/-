@@ -1,258 +1,205 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ChatGPT 질문 답변 페이지</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #e3f2fd, #fce4ec);
-      font-family: Arial, sans-serif;
-      color: #333;
-    }
-
-    .container {
-      width: min(900px, 92%);
-      margin: 40px auto;
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.16);
-    }
-
-    h1 {
-      margin: 0 0 8px;
-      text-align: center;
-      font-size: 28px;
-    }
-
-    .subtitle {
-      text-align: center;
-      color: #777;
-      margin-bottom: 24px;
-      font-size: 14px;
-    }
-
-    .info {
-      padding: 14px;
-      margin-bottom: 20px;
-      border-radius: 14px;
-      background: #e8f5e9;
-      color: #2e7d32;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .chat-box {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 140px;
-      resize: vertical;
-      padding: 16px;
-      border: 1px solid #ddd;
-      border-radius: 16px;
-      font-size: 16px;
-      line-height: 1.5;
-      outline: none;
-      font-family: Arial, sans-serif;
-    }
-
-    textarea:focus {
-      border-color: #42a5f5;
-      box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.15);
-    }
-
-    .button-row {
-      display: flex;
-      gap: 10px;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-    }
-
-    button {
-      border: none;
-      border-radius: 12px;
-      padding: 0 18px;
-      height: 46px;
-      font-size: 15px;
-      cursor: pointer;
-      transition: 0.15s;
-      font-weight: bold;
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-      opacity: 0.9;
-    }
-
-    button:disabled {
-      cursor: not-allowed;
-      opacity: 0.6;
-      transform: none;
-    }
-
-    .ask-btn {
-      background: #42a5f5;
-      color: white;
-    }
-
-    .clear-btn {
-      background: #b0bec5;
-      color: white;
-    }
-
-    .answer-box {
-      min-height: 220px;
-      padding: 18px;
-      border-radius: 18px;
-      background: #f7f9fb;
-      border: 1px solid #edf1f5;
-      line-height: 1.7;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    .status {
-      min-height: 24px;
-      color: #555;
-      font-size: 14px;
-    }
-
-    .label {
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    .help {
-      margin-top: 12px;
-      font-size: 13px;
-      color: #777;
-      line-height: 1.6;
-    }
-
-    @media (max-width: 700px) {
-      .button-row {
-        justify-content: stretch;
-      }
-
-      button {
-        width: 100%;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLICE SYSTEM - 범죄 수사 대시보드</title>
+    <!-- Tailwind CSS 제공 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 폰트 및 아이콘 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background-color: #0b0f19;
+        }
+        .glow {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+    </style>
 </head>
-<body>
-  <div class="container">
-    <h1>ChatGPT 질문 답변</h1>
-    <div class="subtitle">GitHub Pages + Google Apps Script + OpenAI API 연동</div>
+<body class="text-slate-100 flex justify-center items-center min-h-screen p-4">
 
-    <div class="info">
-      현재 구조: GitHub Pages 화면 → Google Apps Script 서버 → OpenAI API → 답변 반환<br />
-      API Key는 index.html에 들어가지 않고 Apps Script의 스크립트 속성에 저장됩니다.
+    <!-- 앱 컨테이너 (모바일 화면 사이즈에 최적화) -->
+    <div class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col h-[85vh]">
+        
+        <!-- 상단 헤더 -->
+        <header class="bg-slate-950 border-b border-slate-800 p-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-blue-500 text-xl animate-pulse"></i>
+                <h1 class="text-md font-bold tracking-wider text-blue-400">METRO POLICE SYS</h1>
+            </div>
+            <div class="flex items-center gap-3 text-xs bg-slate-900 px-3 py-1.5 rounded-full border border-slate-800">
+                <span>명성: <strong id="rep-score" class="text-yellow-400">⭐ 50</strong></span>
+                <span class="text-slate-600">|</span>
+                <span>해결: <strong id="solved-count" class="text-green-400">0건</strong></span>
+            </div>
+        </header>
+
+        <!-- 메인 콘텐츠 영역 (스크롤 가능) -->
+        <main class="flex-1 p-4 overflow-y-auto space-y-4" id="main-content">
+            
+            <!-- 대시보드 요약 -->
+            <div class="bg-gradient-to-r from-slate-950 to-slate-900 p-4 rounded-xl border border-slate-800">
+                <h2 class="text-sm font-semibold text-slate-400 mb-1">오늘의 관할 구역 치안 상태</h2>
+                <p class="text-lg font-bold text-red-400"><i class="fa-solid fa-triangle-exclamation mr-1"></i> 경계 단계 (강도 및 해킹 발생)</p>
+            </div>
+
+            <!-- 사건 리스트 타이틀 -->
+            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider px-1">접수된 긴급 사건 목록</h3>
+
+            <!-- 사건 카드들 -->
+            <div class="space-y-3" id="case-list">
+                <!-- 사건 1 -->
+                <div onclick="openCase(1)" class="bg-slate-950 border border-slate-800 hover:border-blue-500/50 p-4 rounded-xl cursor-pointer transition-all duration-200 flex justify-between items-center group">
+                    <div class="space-y-1">
+                        <span class="text-[10px] bg-red-900/50 text-red-400 px-2 py-0.5 rounded border border-red-800">지정 강력 사건</span>
+                        <h4 class="font-bold text-sm text-slate-200 group-hover:text-blue-400 transition-colors">미드나잇 미술관 도난 사건</h4>
+                        <p class="text-xs text-slate-400">전날 새벽, 수십억 가치의 명화가 사라졌습니다.</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-blue-400 transition-colors pl-2"></i>
+                </div>
+
+                <!-- 사건 2 -->
+                <div onclick="openCase(2)" class="bg-slate-950 border border-slate-800 hover:border-blue-500/50 p-4 rounded-xl cursor-pointer transition-all duration-200 flex justify-between items-center group">
+                    <div class="space-y-1">
+                        <span class="text-[10px] bg-amber-900/50 text-amber-400 px-2 py-0.5 rounded border border-amber-800">사이버 범죄</span>
+                        <h4 class="font-bold text-sm text-slate-200 group-hover:text-blue-400 transition-colors">유령 해커의 시청 협박 소동</h4>
+                        <p class="text-xs text-slate-400">시청 서버를 마비시키겠다는 랜섬웨어 메일이 도착했습니다.</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-blue-400 transition-colors pl-2"></i>
+                </div>
+
+                <!-- 사건 3 -->
+                <div onclick="openCase(3)" class="bg-slate-950 border border-slate-800 hover:border-blue-500/50 p-4 rounded-xl cursor-pointer transition-all duration-200 flex justify-between items-center group">
+                    <div class="space-y-1">
+                        <span class="text-[10px] bg-blue-900/50 text-blue-400 px-2 py-0.5 rounded border border-blue-800">일반 형사</span>
+                        <h4 class="font-bold text-sm text-slate-200 group-hover:text-blue-400 transition-colors">빗속 골목길 뺑소니 사고</h4>
+                        <p class="text-xs text-slate-400">현장에 깨진 전조등 파편과 희미한 타이어 자국이 남았습니다.</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-blue-400 transition-colors pl-2"></i>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- 하단 내비게이션 바 -->
+        <footer class="bg-slate-950 border-t border-slate-800 p-3 grid grid-cols-3 text-center text-xs text-slate-500">
+            <button onclick="goHome()" class="flex flex-col items-center gap-1 text-blue-400 font-semibold">
+                <i class="fa-solid fa-building-shield text-lg"></i>
+                <span>상황실</span>
+            </button>
+            <button onclick="alert('데이터베이스 동기화 완료')" class="flex flex-col items-center gap-1 hover:text-slate-300">
+                <i class="fa-solid fa-folder-open text-lg"></i>
+                <span>조회시스템</span>
+            </button>
+            <button onclick="alert('접속자: 경위 김지훈')" class="flex flex-col items-center gap-1 hover:text-slate-300">
+                <i class="fa-solid fa-user-gear text-lg"></i>
+                <span>내 정보</span>
+            </button>
+        </footer>
     </div>
 
-    <div class="chat-box">
-      <div>
-        <div class="label">질문</div>
-        <textarea id="questionInput" placeholder="질문을 입력하세요. 예: 고등학생에게 파이썬 반복문을 쉽게 설명해줘."></textarea>
-      </div>
+    <!-- 자바스크립트 수사 엔진 -->
+    <script>
+        let reputation = 50;
+        let solvedCases = 0;
 
-      <div class="button-row">
-        <button class="clear-btn" id="clearBtn">초기화</button>
-        <button class="ask-btn" id="askBtn">질문하기</button>
-      </div>
+        // 사건 데이터 정의
+        const caseData = {
+            1: {
+                title: "미드나잇 미술관 도난 사건",
+                desc: "CCTV가 유일하게 꺼졌던 오전 2시에서 3시 사이, 한정판 명화가 도난당했습니다. 현장에는 미세한 흙먼지와 경비원의 풀려진 넥타이가 발견되었습니다.",
+                choices: [
+                    { text: "경비원을 집중 심문하여 내부 조력자 여부를 파악한다.", rep: 15, msg: "성공! 경비원이 거액의 빚 때문에 보안 카드를 복사해 준 사실을 자백했습니다. 주범을 검거했습니다." },
+                    { text: "미술관 주변 사설 CCTV와 차량 블랙박스를 전수 조사한다.", rep: -10, msg: "실패... 용의자는 대포차를 이용해 흔적을 감추었습니다. 수사가 미궁에 빠져 명성이 떨어집니다." }
+                ]
+            },
+            2: {
+                title: "유령 해커의 시청 협박 소동",
+                desc: "다크웹을 통해 유출된 시청 데이터로 협박이 들어왔습니다. 해커는 3시간 뒤 서버를 파괴하겠다고 경고하며 비트코인을 요구하고 있습니다.",
+                choices: [
+                    { text: "사이버 수사대에 IP 추적을 의뢰하고 해커의 서버 위치를 급습한다.", rep: -15, msg: "실패... 우회 VPN 노드였습니다. 헛걸음한 사이에 시청 데이터 일부가 추가 유출되었습니다." },
+                    { text: "화이트 해커와 협력하여 역방향 디코딩으로 악성코드 침투 경로를 차단한다.", rep: 20, msg: "대성공! 악성코드를 무력화하고 역추적을 통해 오피스텔에 숨어있던 고등학생 해커를 검거했습니다!" }
+                ]
+            },
+            3: {
+                title: "빗속 골목길 뺑소니 사고",
+                desc: "피해자는 중상을 입었으나 우천으로 인해 단서가 씻겨나갔습니다. 현장 근처에는 은색 차량의 범퍼 파편이 떨어져 있습니다.",
+                choices: [
+                    { text: "관내 등록된 은색 차량 중 최근 수리 내역이 있는 공업사를 탐문한다.", rep: 15, msg: "성공! 범퍼를 비밀리에 교체하려던 용의자를 공업사에서 긴급 체포했습니다." },
+                    { text: "목격자를 찾기 위해 인근 주택가에 현수막을 걸고 제보를 기다린다.", rep: 5, msg: "소기의 성과. 결정적 제보는 없었으나, 인근 편의점 알바생의 진술로 용의 차량 번호 뒤 2자리를 확보했습니다." }
+                ]
+            }
+        };
 
-      <div id="status" class="status"></div>
+        const initialMainContent = document.getElementById('main-content').innerHTML;
 
-      <div>
-        <div class="label">답변</div>
-        <div id="answerBox" class="answer-box">아직 답변이 없습니다.</div>
-      </div>
-
-      <div class="help">
-        단축키: 질문 입력창에서 Ctrl + Enter를 누르면 질문이 전송됩니다.<br />
-        오류가 발생하면 Apps Script 배포 권한이 “모든 사용자”인지 확인하세요.
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyTS-n6dNxhXGHxck-BL97z9l2PPrqZbl0tqjtPIP44MVFtyOiTwizk4jva8GMuV38p/exec';
-
-    const questionInput = document.getElementById('questionInput');
-    const answerBox = document.getElementById('answerBox');
-    const statusBox = document.getElementById('status');
-    const askBtn = document.getElementById('askBtn');
-    const clearBtn = document.getElementById('clearBtn');
-
-    askBtn.addEventListener('click', askChatGPT);
-    clearBtn.addEventListener('click', clearPage);
-
-    questionInput.addEventListener('keydown', function(event) {
-      if (event.key === 'Enter' && event.ctrlKey) {
-        askChatGPT();
-      }
-    });
-
-    async function askChatGPT() {
-      const question = questionInput.value.trim();
-
-      if (!question) {
-        alert('질문을 입력해주세요.');
-        return;
-      }
-
-      try {
-        setLoading(true);
-        answerBox.textContent = '답변을 생성하는 중입니다...';
-        statusBox.textContent = 'Apps Script 서버에 요청을 보내는 중입니다.';
-
-        const response = await fetch(APPS_SCRIPT_URL, {
-          method: 'POST',
-          body: JSON.stringify({
-            question: question
-          })
-        });
-
-        const data = await response.json();
-
-        if (data.error) {
-          throw new Error(data.error);
+        function updateUI() {
+            document.getElementById('rep-score').innerText = `⭐ ${reputation}`;
+            document.getElementById('solved-count').innerText = `${solvedCases}건`;
         }
 
-        answerBox.textContent = data.answer || '답변을 가져오지 못했습니다.';
-        statusBox.textContent = '답변 생성 완료';
-      } catch (error) {
-        console.error(error);
-        answerBox.textContent = '오류가 발생했습니다.\n\n' + error.message;
-        statusBox.textContent = '요청 실패';
-      } finally {
-        setLoading(false);
-      }
-    }
+        function openCase(id) {
+            const currentCase = caseData[id];
+            const main = document.getElementById('main-content');
+            
+            let html = `
+                <div class="space-y-4">
+                    <button onclick="goHome()" class="text-xs text-blue-400 hover:underline flex items-center gap-1">
+                        <i class="fa-solid fa-arrow-left"></i> 상황실로 돌아가기
+                    </button>
+                    <div class="bg-slate-950 border border-blue-500/30 p-5 rounded-xl space-y-3 glow">
+                        <h2 class="text-base font-bold text-blue-400 border-b border-slate-800 pb-2">${currentCase.title}</h2>
+                        <p class="text-xs leading-relaxed text-slate-300 bg-slate-900 p-3 rounded-lg border border-slate-800">${currentCase.desc}</p>
+                    </div>
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider px-1">현 시간부 수사 명령 선택</h3>
+                    <div class="space-y-2">
+            `;
 
-    function setLoading(isLoading) {
-      askBtn.disabled = isLoading;
-      askBtn.textContent = isLoading ? '생성 중...' : '질문하기';
-    }
+            currentCase.choices.forEach((choice, index) => {
+                html += `
+                    <button onclick="selectChoice(${id}, ${index})" class="w-full text-left bg-slate-950 border border-slate-800 hover:border-blue-500 hover:bg-slate-900/50 p-4 rounded-xl text-xs font-medium transition-all duration-200 flex justify-between items-center group">
+                        <span class="text-slate-200 group-hover:text-blue-300">${choice.text}</span>
+                        <i class="fa-solid fa-gavel text-slate-700 group-hover:text-blue-500 transition-colors pl-2"></i>
+                    </button>
+                `;
+            });
 
-    function clearPage() {
-      questionInput.value = '';
-      answerBox.textContent = '아직 답변이 없습니다.';
-      statusBox.textContent = '';
-    }
-  </script>
+            html += `</div></div>`;
+            main.innerHTML = html;
+        }
+
+        function selectChoice(caseId, choiceIndex) {
+            const choice = caseData[caseId].choices[choiceIndex];
+            reputation += choice.rep;
+            if (choice.rep > 0) solvedCases++;
+
+            const main = document.getElementById('main-content');
+            const isSuccess = choice.rep > 0;
+
+            main.innerHTML = `
+                <div class="space-y-5 text-center py-8">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full ${isSuccess ? 'bg-green-950 text-green-400 border border-green-800' : 'bg-red-950 text-red-400 border border-red-800'} text-2xl mb-2">
+                        <i class="${isSuccess ? 'fa-solid fa-handcuffs' : 'fa-solid fa-ban'}"></i>
+                    </div>
+                    <h2 class="text-lg font-bold ${isSuccess ? 'text-green-400' : 'text-red-400'}">${isSuccess ? '수사 성공 / 사건 종결' : '수사 실패 / 추적 실패'}</h2>
+                    <p class="text-xs text-slate-300 max-w-xs mx-auto bg-slate-950 p-4 rounded-xl border border-slate-800 leading-relaxed">${choice.msg}</p>
+                    <div class="text-xs font-semibold ${choice.rep > 0 ? 'text-green-400' : 'text-red-400'}">
+                        명성 변동: ${choice.rep > 0 ? '+' : ''}${choice.rep}
+                    </div>
+                    <button onclick="goHome()" class="mt-4 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-6 py-2.5 rounded-lg transition-all shadow-lg shadow-blue-600/20">
+                        종합 상황실 복귀
+                    </button>
+                </div>
+            `;
+            updateUI();
+        }
+
+        function goHome() {
+            document.getElementById('main-content').innerHTML = initialMainContent;
+            updateUI();
+        }
+    </script>
 </body>
 </html>
-
